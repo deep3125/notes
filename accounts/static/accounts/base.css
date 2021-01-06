@@ -1,0 +1,15 @@
+body{
+    background-color: whitesmoke;
+}
+
+#div{
+    vertical-align: middle;
+    border: 1px solid rgb(177, 177, 194);
+    background-color: white;
+    width: 30%;
+    height: fit-content;
+}
+
+input:focus{
+    outline: none;
+}

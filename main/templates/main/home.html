@@ -1,0 +1,240 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}
+    <title>Notes</title>
+{% endblock title %}
+{% block content %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'main/home.css' %}">
+    
+    <script>
+        window.addEventListener('load', function () {
+            var data = JSON.parse('{{notes | escapejs}}');
+            var i=0;
+            
+            if (Object.keys(data[0]).length==1)
+            {
+                var to_be_searched = data[0]['to_be_searched'];
+                var search_found = true;
+                var span = document.getElementById('TakeNote');
+                span.style.visibility = "hidden";
+                span.style.display = 'none';
+            }
+            else
+                var search_found = false;
+            for (var x in data)
+            {
+                var note = data[x];
+                if (Object.keys(note).length == 1)
+                    continue;
+                var ele = document.createElement('div');
+                ele.id = "note";
+                ele.style.height='fit-content'
+
+                var img = document.createElement('img');
+                img.src = note['img'];
+
+                var title = document.createElement('h1');
+
+                if (search_found)
+                {
+                    var indexs = getIndicesOf(to_be_searched, note['title']);
+                    var pre_index =0;
+                    var index;
+                    for (var ind in indexs)
+                    {
+                        index = indexs[ind];
+                        if ((pre_index)==index)
+                            title.innerHTML += ' ';
+                        title.innerHTML += note['title'].substring(pre_index, index) + '<span style="background-color:yellow;">' + to_be_searched +'</span>';
+                        
+                        pre_index = index + to_be_searched.length;
+                        
+                    }
+                    title.innerHTML += note['title'].substring(pre_index);
+                }
+                else
+                    title.innerHTML = note['title'];    
+
+                var para = document.createElement('p');
+                if (search_found)
+                {
+                    var indexs = getIndicesOf(to_be_searched, note['description']);
+                    var pre_index =0;
+                    var index;
+                    for (var ind in indexs)
+                    {
+                        index = indexs[ind];
+                        para.innerHTML += note['description'].substring(pre_index, index) + '<span style="background-color:yellow;">' + to_be_searched +'</span>'; 
+                        pre_index = index + to_be_searched.length;
+                    }
+                    para.innerHTML += note['description'].substring(pre_index);
+                }
+                else
+                    para.innerHTML = note['description'];
+
+                var form = document.createElement('form');
+                form.id="deleteForm";
+                form.method='POST';
+                form.action='change';
+                var input = document.createElement('input');
+                input.value = note['id'];
+                input.name = 'id';
+                input.style.display='none';
+                input.style.visibility='hidden';
+
+                var delete_button = document.createElement('button');
+                delete_button.className = 'noteButton';
+                delete_button.style.float='right';
+                delete_button.style.height="fit-content";
+                delete_button.style.width="fit-content";
+                delete_button.style.borderRadius="500px";
+                delete_button.style.border="none";
+                delete_button.style.backgroundColor="white";
+                delete_button.type='submit';
+                delete_button.name = 'delete'
+                delete_button.onmouseenter = function(){
+                    this.style.transition="0.25s";
+                    this.style.backgroundColor="rgb(230,230,230)";
+                }
+                delete_button.onmouseleave = function(){
+                    this.style.transition="0.5s";
+                    this.style.backgroundColor="white";
+                }
+                delete_button.onfocus = function(){
+                    this.style.outline="none";
+                }
+                delete_button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">'+
+                    '<path d="M15 4V3H9v1H4v2h1v13c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V6h1V4h-5zm2 15H7V6h10v13z"></path>' + 
+                    '<path d="M9 8h2v9H9zm4 0h2v9h-2z"></path></svg>';
+
+
+                var edit_button = document.createElement('button');
+                edit_button.className = 'noteButton';
+                edit_button.style.float='right';
+                edit_button.style.height="fit-content";
+                edit_button.style.width="fit-content";
+                edit_button.style.borderRadius="500px";
+                edit_button.style.border="none";
+                edit_button.style.backgroundColor="white";
+                edit_button.type='submit';
+                edit_button.name = 'edit'
+                edit_button.onmouseenter = function(){
+                    this.style.transition="0.25s";
+                    this.style.backgroundColor="rgb(230,230,230)";
+                }
+                edit_button.onmouseleave = function(){
+                    this.style.transition="0.5s";
+                    this.style.backgroundColor="white";
+                }
+                edit_button.onfocus = function(){
+                    this.style.outline="none";
+                }
+                edit_button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">' + 
+                    '<path d="M20.41 4.94l-1.35-1.35c-.78-.78-2.05-.78-2.83 0L13.4 6.41 3 16.82V21h4.18l10.46-10.46 2.77-2.77c.79-.78.79-2.05 0-2.83zm-14 14.12L5 19v-1.36l9.82-9.82 1.41 1.41-9.82 9.83z">' +
+                    '</path></svg>';
+
+                var space = document.createElement('div');
+                space.innerHTML = '&nbsp;';
+                space.style.float = 'right';
+                form.innerHTML = '{% csrf_token %}';
+                form.appendChild(input)
+                form.appendChild(delete_button);
+                form.appendChild(space);
+                form.appendChild(edit_button);
+                var break_line = document.createElement('br'); 
+
+                ele.appendChild(img);
+                ele.appendChild(title);
+                ele.appendChild(para);
+                ele.appendChild(form);
+                ele.appendChild(break_line);
+
+                var parent = document.getElementsByClassName("div");
+                if (i>3)
+                {
+                    i=0;
+                }
+                parent[i].appendChild(ele);
+                i++;
+            }
+          })
+
+        function getIndicesOf(searchStr, str, caseSensitive) {
+            var searchStrLen = searchStr.length;
+            if (searchStrLen == 0) {
+                return [];
+            }
+            var startIndex = 0, index, indices = [];
+            if (!caseSensitive) {
+                str = str.toLowerCase();
+                searchStr = searchStr.toLowerCase();
+            }
+            while ((index = str.indexOf(searchStr, startIndex)) > -1) {
+                indices.push(index);
+                startIndex = index + searchStrLen;
+            }
+            return indices;
+        }
+
+        function change_visibility(x){
+            if (x){
+                var span = document.getElementById('TakeNoteSpan');
+                span.style.visibility = "visible";
+                span.style.display = 'block';
+                var take_note = document.getElementById("TakeNote");
+                take_note.style.height = 'fit-content';
+                var form = document.getElementById("TakeNoteForm");
+                form.style.visibility = 'hidden';
+                form.style.display = 'none';
+            }
+            else{
+                var span = document.getElementById('TakeNoteSpan');
+                span.style.visibility = "hidden";
+                span.style.display = 'none';
+                var take_note = document.getElementById("TakeNote");
+                take_note.style.height = 'fit-content';
+                var form = document.getElementById("TakeNoteForm");
+                form.style.visibility = 'visible';
+                form.style.display = 'block';
+                var input = document.getElementById("TakeNoteFormInput").focus=true;
+            }
+
+            
+        }
+
+        function autoheight(x){
+            x.style.height = "5px";
+            x.style.height = (15+x.scrollHeight)+"px";
+        }
+
+    </script>
+    <br/>
+    <center>
+        <div id="TakeNote">
+            <span onclick="change_visibility(false);" id="TakeNoteSpan">&nbsp;&nbsp;&nbsp;Take a Note</span>
+            <form action="add_note" method="POST" id="TakeNoteForm">
+                {% csrf_token %}
+                <input type="text" class="TakeNoteFormInput" id="TakeNoteFormInput" placeholder="Title" name="title"><br>
+                <textarea placeholder="Take a note..." form="TakeNoteForm" onchange="autoheight(this)" name="description"></textarea>
+                <div id="TakeNoteFormUrlAndCloseButton">
+                    <input type="url" id="TakeNoteFormUrl" placeholder="Url of image" name="img">
+                    <button id="TakeNoteFormCloseButton" onclick="change_visibility(true);" type="button">Close</button>
+                </div>
+                <input type="submit" style="display: none; visibility:hidden;">
+                
+            </form>
+        </div>
+    </center>
+    <br/><br/>
+    <div id="content">
+        <div class="div" name="note">
+        </div>
+        <div class="div" name="note">
+        </div>
+        <div class="div" name="note">
+        </div>
+        <div class="div" name="note">
+        </div>
+    </div>
+{% endblock content %}

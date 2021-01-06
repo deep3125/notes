@@ -1,0 +1,33 @@
+#note{
+    background-color: whitesmoke;
+    width: 100%;
+    height:50rem;
+}
+
+#edit_note{
+    width: 50%;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    height: unset;
+    border: 2px solid rgb(110, 109, 109);
+}
+
+#edit_note > *{
+    line-height: 40px;
+    width: 90%;
+    border: none;
+}
+
+#title{
+    font-size: 25px;
+    font-weight: bold;
+}
+
+#description, #img, #submit{
+    font-size: 15px;
+}
+
+#description:focus, #title:focus, #img:focus, #submit:focus{
+    outline: none;
+}

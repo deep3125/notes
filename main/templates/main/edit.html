@@ -1,0 +1,24 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Edit</title>
+{% endblock title %}
+
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'main/edit.css' %}">
+    <script src="{% static 'main/edit.js' %}"></script>
+    <center>
+        <div id="note"><br/><br/>
+            <form action='edit' id="edit_note" method="POST"><br/>
+                {% csrf_token %}
+                <input id="title" value="{{ notes.title }}" name="title" placeholder="Title"><br/><br/>
+                <textarea id="description" form="edit_note" name="description" onchange="autoheight(this);" placeholder="Description Of Note">{{ notes.description }}</textarea>
+                <input id="img" value="{{notes.img}}" name="img" placeholder="Url Of Image"><br/><br/>
+                <input style="display:none;visibility:hidden;" value="{{ notes.id }}" name="id">
+                <button id="submit" type="submit">Submit</button><br/>
+            </form>
+        </div>
+    </center>
+    
+{% endblock content %}

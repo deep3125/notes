@@ -1,0 +1,79 @@
+#bar
+{
+    height: 40px;
+    display: flex;
+    width: 100%;
+}
+
+#search{
+    display: flex;
+    width: 40%;
+    height: inherit;
+    margin-left: 15%;
+    border: none;
+    background-color: rgb(245, 243, 243);
+    border-radius: 10px;
+    vertical-align: middle;
+}
+
+#logout{
+    width:10%;
+    margin-left: auto;
+    margin-right: 3px;
+}
+
+#logout button{
+    width:100%;
+    height: 100%;
+    border-radius: 20px;
+    font-size: 15px;
+    border: none;
+    color: rgb(95, 95, 95);
+    outline: none
+}
+#logout button:hover{
+    transition: 0.5s;
+    color: rgb(54, 54, 54);
+    background-color: rgb(209, 209, 209);
+}
+
+#search center form input{
+    outline: none;
+    background-color: inherit;
+    border: none;
+    width: 100%;
+    height: 40px;
+}
+
+#nav{
+    height: 100%;
+    width: 0px;
+    background-color: rgb(95, 95, 95);
+    position: fixed;
+    overflow-x: hidden;
+    transition: 0.5s;
+}
+
+#nav a{
+    font-size: large;
+    padding: 15px;
+    text-decoration: none;
+    display: block;
+    color: white;
+    transition: 0.2s;
+}
+
+.closebtn{
+    margin-top: 10px;
+    text-align: right;
+    font-size: 100px;
+}
+
+#nav a:hover{
+    transition: 1s;
+    font-weight: bold;
+    font-size:x-large;
+    border-color:  whitesmoke;
+    border-radius: 5px;
+    background-color: rgb(161, 161, 161);
+}

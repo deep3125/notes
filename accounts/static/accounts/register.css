@@ -1,0 +1,51 @@
+input, button{
+    border: 2px solid rgb(193, 193, 211);
+    border-radius: 7px;
+    width: 60%;
+    padding: 5px;
+}
+
+button{
+    color: white;
+    background-color: rgb(114, 114, 119);
+}
+
+#link{
+    width: 60%;
+}
+
+a{
+    text-decoration: none;
+    color: rgb(128, 128, 128);
+}
+
+button:hover{   
+    background-color: rgb(176, 176, 184);
+}
+
+#passwordPoints{
+    visibility: hidden;
+    color: rgb(82, 81, 81);
+    background-color: whitesmoke;
+    display: none;
+    height: fit-content;
+    border-radius: 7px;
+    width: 18%;
+    position: absolute;
+    z-index: 1;
+}
+
+#div_message{
+    display:table;
+    height:fit-content;
+    border-radius: 7px;
+    width: 60%;
+    background-color:rgb(255, 175, 175);
+}
+
+#div_message ul li{
+    margin: 8px;
+    vertical-align:middle;
+    height: fit-content;
+    color: red;
+}

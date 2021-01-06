@@ -1,0 +1,108 @@
+#content{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+.div{
+    flex: 25%;
+}
+#note{
+    padding: 20px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    height: unset;
+    border: 1px solid rgb(110, 109, 109);
+}
+
+#note img{
+    width: 100%;
+}
+
+#note:hover{
+    transition: 0.25s;
+    box-shadow:1px 1px 1px 1px rgb(141, 140, 140)
+}
+
+#deleteForm button{
+    visibility: hidden;
+    opacity: 0;
+}
+
+#note:hover #deleteForm button{
+    transition: 0.25s;
+    opacity: 1;
+    visibility: visible;
+}
+
+#TakeNote{
+    width: 40%;
+    height: 40px;
+}
+
+#TakeNote span{
+    text-align: left;
+    line-height: 40px;
+    font-size: large;
+    display: block; 
+    color: rgb(116, 114, 114);
+    border-radius: 10px;
+    width: 100%;
+    height: inherit;
+    border: 2px solid rgb(145, 144, 144);
+    box-shadow: 2px 2px 2px 2px rgb(141, 140, 140);
+}
+
+#TakeNoteForm{
+    display: none;
+    visibility: hidden;
+    width: 100%;
+    height: fit-content;
+    text-align: left;
+    color: rgb(116, 114, 114);
+    border-radius: 10px;
+    width: 100%;
+    border: 2px solid rgb(145, 144, 144);
+    box-shadow: 2px 2px 2px 2px rgb(141, 140, 140);
+}
+
+.TakeNoteFormInput, #TakeNoteForm textarea, #TakeNoteFormUrlAndCloseButton{
+    margin-left: 4px;
+    width: 90%;
+    line-height: 30px;
+    border: none;
+    font-size: 15px;
+}
+#TakeNoteForm textarea{
+    font-family: initial;   
+}
+
+#TakeNoteFormUrlAndCloseButton{
+    display: inline-block;
+}
+
+.TakeNoteFormInput:focus, #TakeNoteForm textarea:focus, #TakeNoteFormUrl:focus, #TakeNoteFormCloseButton:focus{
+    outline: none;
+}
+
+#TakeNoteFormUrl{
+    width: 75%;
+    border: None;
+    line-height: 30px;
+}
+
+#TakeNoteFormCloseButton{
+    text-overflow: ellipsis;
+    width: 20%;
+    border: None;
+    border-radius: 4px;
+    height: 30px;
+    background-color: white;
+}
+
+#TakeNoteFormCloseButton:hover{
+    transition: 0.2s;
+    background-color: whitesmoke;
+}

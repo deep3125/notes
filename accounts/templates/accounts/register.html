@@ -1,0 +1,42 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Register</title>
+{% endblock title %}
+
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'accounts/register.css' %}">
+    <script src="{% static 'accounts/register.js' %}"></script>
+    <h1>SignUp Page</h1>
+    <form action="/accounts/create_account/" method="POST">
+        {% csrf_token %}
+        <input type="text" id="name" placeholder="Name" name="user_name" required><br/><br/>
+        <input type="text" id="first_name" placeholder="First Name" name="first_name" required><br/><br/>
+        <input type="text" id="last_name" placeholder="Last Name" name="last_name" required><br/><br/>
+        <input type="email" id="email" placeholder="Email(xyz@abc.com)" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required><br/><br/>
+        <input type="password" id="password1" placeholder="Password" onfocus="Show_tips(true);" onfocusout="Show_tips(false);" name="password1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+        <ul id="passwordPoints">
+            <li>Length of password must be atleast 8</li>
+            <li>Password must have atleast one lower-case letter</li>
+            <li>Password must have atleast one upper-case letter</li>
+            <li>Password must have atleast one digit</li>
+        </ul><br/><br/>
+        <input type="password" id="password2" placeholder="Confirm Password" name="password2" required>
+
+        {% if messages %}<br/><br/>
+            <div id="div_message">
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        <br/><br/><br/>
+        <button type="submit">Submit</button><br/><br/>
+    </form>                
+    <div id="link">
+        <span id="left"><a href="/accounts/login/">Sign In</a></span>
+    </div>
+{% endblock content %}

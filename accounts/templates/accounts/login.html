@@ -1,0 +1,29 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+{% block title %}
+    <title>Login</title>
+{% endblock title %}
+
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'accounts/login.css' %}">
+    <h1>Login Page</h1>
+    <form action="/accounts/log_user/" method="POST">
+        {% csrf_token %}
+        <input type="text" id="name" placeholder="Name" name="username" required><br/><br/>
+        <input type="password" id="password" placeholder="Password" name="password" required><br/><br/>
+        {% if messages %}
+            <div id="div_message">
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div><br/>
+        {% endif %}
+        <button type="submit">Submit</button><br/><br/>
+    </form>                
+    <div id="link">
+        <span id="left"><a href="/accounts/register/">Forgot Password</a></span>
+        <span id="right"><a href="/accounts/register/">SignUp</a></span>
+    </div>
+{% endblock content %}

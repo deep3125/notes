@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        {% block title %} {% endblock %}
+    </head>
+    <body>
+        <link rel="stylesheet" type="text/css" href="{% static 'main/base.css' %}">
+        <script type = "text/javascript" src = "{% static 'main/base.js' %}" ></script>
+        <div id="bar">
+            <div><span style="font-size:30px;cursor:pointer;" onclick="openNav();">&#9776;</span></div>
+            <div id="search">
+                &nbsp;&nbsp;&nbsp;                
+                <svg focusable="false" height="100%" viewBox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20.49,19l-5.73-5.73C15.53,12.2,16,10.91,16,9.5C16,5.91,13.09,3,9.5,3S3,5.91,3,9.5C3,13.09,5.91,16,9.5,16 c1.41,0,2.7-0.47,3.77-1.24L19,20.49L20.49,19z M5,9.5C5,7.01,7.01,5,9.5,5S14,7.01,14,9.5S11.99,14,9.5,14S5,11.99,5,9.5z"></path>
+                    <path d="M0,0h24v24H0V0z" fill="none"></path>
+                </svg>&nbsp;&nbsp;&nbsp;
+                <center style="width: 90%;">
+                    <form style="width: 100%;" action="search" method="POST">
+                        {% csrf_token %}
+                        <input type="search" placeholder="Search" name="search">
+                        <input type="submit" style="display: none; visibility:hidden;">
+                    </form>
+                </center>
+            </div>
+            <div id="logout"><button onclick="window.location.href='/accounts/logout/'">Logout</button></div>
+        </div>
+        <hr>
+        <div id="nav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav();" style="font-size: xx-large;">&times;</a>
+            <a href="about">About</a>
+            <!-- <a href="#">Services</a>
+            <a href="#">Clients</a>
+            <a href="#">Contact</a> -->
+        </div>
+        
+        {% block content %}{% endblock %}
+    </body>
+</html>

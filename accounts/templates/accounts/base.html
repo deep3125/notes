@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        {% block title %} {% endblock %}
+    </head>
+    <body>
+        <link rel="stylesheet" type="text/css" href="{% static 'accounts/base.css'%}">
+        <center>
+            <div id="space"><br/><br/><br/></div>
+            <div id="div">
+                <div id="space"><br/><br/><br/></div>
+                {% block content %}{% endblock %}
+                <div id="space"><br/><br/><br/></div>
+            </div>
+        </center>        
+    </body>
+</html>
